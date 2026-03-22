@@ -37,16 +37,24 @@ Début du projet : Mars 2026
 - Vérifié les 3 interfaces web opérationnelles
 - 2 commits Git effectués
 ---
+## Session 2 — 22/03/2026
 
-## Session 2 — [Date]
-
-**Durée :**
-**Phase :**
+**Durée :** 1h
+**Phase :** 1.2 Analyse des sources
 
 **Ce que j'ai fait :**
+- Créé le compte développeur France-Travail
+- Obtenu le Client ID et la Clé secrète
+- Créé l'environnement virtuel Python
+- Installé requests et python-dotenv
+- Écrit le script test_api.py
+- Récupéré 5 vraies offres d'emploi Data Engineer
 
-**Décisions prises :**
-
-**Difficultés rencontrées :**
+**Résultat :**
+- Token OAuth2 obtenu avec succès
+- 5 offres récupérées : Nantes, Paris, Lille, Montpellier, Toulouse
+- Champs disponibles : titre, entreprise, lieu, type contrat
 
 **Prochaine session :**
+- Analyser tous les champs disponibles dans le JSON
+- Écrire le scraper complet pour 100+ offres
