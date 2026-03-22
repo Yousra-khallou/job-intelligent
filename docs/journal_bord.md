@@ -31,6 +31,11 @@ Début du projet : Mars 2026
 - Créer l'environnement virtuel Python
 - Tester l'API France-Travail
 
+**Mis à jour :**
+- Installé et configuré Docker-compose
+- Lancé PostgreSQL, Airflow et pgAdmin
+- Vérifié les 3 interfaces web opérationnelles
+- 2 commits Git effectués
 ---
 
 ## Session 2 — [Date]
