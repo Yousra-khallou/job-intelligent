@@ -58,3 +58,31 @@ Début du projet : Mars 2026
 **Prochaine session :**
 - Analyser tous les champs disponibles dans le JSON
 - Écrire le scraper complet pour 100+ offres
+
+## Session 3 — 29/03/2026
+
+**Durée :** 3h
+**Phase :** 1.3 Infrastructure Docker
+
+**Ce que j'ai fait :**
+- Ajouté MinIO comme Data Lake scalable
+- Configuré cluster Spark : 1 Master + 2 Workers
+- Résolu les conflits de ports (5433, 8082, 9002, 9003)
+- Réinitialisé le mot de passe Airflow
+- Vérifié les 4 interfaces web opérationnelles
+
+**Infrastructure finale :**
+- PostgreSQL  : port 5433
+- pgAdmin     : port 5050
+- Airflow     : port 8082
+- Spark Master: port 8083
+- MinIO       : port 9002/9003
+
+**Décisions prises :**
+- Cluster Spark Master + 2 Workers au lieu de mode local
+- MinIO comme Data Lake S3-compatible et scalable
+- Abandon de Kubernetes et Kafka (over-engineering)
+
+**Prochaine session :**
+- Créer les buckets Bronze/Silver/Gold dans MinIO
+- Écrire le scraper complet vers MinIO
