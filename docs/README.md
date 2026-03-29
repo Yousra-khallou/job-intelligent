@@ -2,7 +2,7 @@
 
 ## Contexte
 Projet académique - Examen Final Data Engineering
-Réalisé individuellement par : [Ton Prénom Nom]
+Réalisé individuellement par : khallou yousra
 Date : Mars 2026
 
 ## Objectif
