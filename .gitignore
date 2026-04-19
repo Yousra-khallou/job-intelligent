@@ -18,3 +18,6 @@ data/processed/
 # OS Windows
 Thumbs.db
 desktop.ini
+
+jars/
+*.jar
