@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# ✅ Endpoint Docker correct
 minio_client = boto3.client(
     's3',
     endpoint_url='http://minio:9000',
@@ -43,21 +44,18 @@ def collecter_offres(keyword="data", nb_pages=5):
 
             for carte in cartes:
                 try:
-                    # Titre
                     titre_tag = carte.find('h3')
                     titre = titre_tag.text.strip() if titre_tag else "Non precise"
 
-                    # Entreprise
                     entreprise_tag = carte.find('a', class_='card-job-company')
                     entreprise = entreprise_tag.text.strip() if entreprise_tag else "Non precise"
 
-                    # Infos dans les li
                     lis = carte.find_all('li')
                     niveau_etudes = "Non precise"
-                    experience = "Non precise"
-                    contrat = "Non precise"
-                    region = "Non precise"
-                    competences = "Non precise"
+                    experience    = "Non precise"
+                    contrat       = "Non precise"
+                    region        = "Non precise"
+                    competences   = "Non precise"
 
                     for li in lis:
                         texte = li.text.strip()
@@ -74,11 +72,9 @@ def collecter_offres(keyword="data", nb_pages=5):
                         elif "Compétences" in texte:
                             competences = valeur
 
-                    # Date
                     date_tag = carte.find('time')
                     date_pub = date_tag.text.strip() if date_tag else "Non precise"
 
-                    # URL
                     lien_tag = titre_tag.find('a') if titre_tag else None
                     url_offre = "https://www.emploi.ma" + lien_tag['href'] if lien_tag and lien_tag.get('href') else ""
 
@@ -91,9 +87,10 @@ def collecter_offres(keyword="data", nb_pages=5):
                         "region": region,
                         "competences": competences,
                         "date_publication": date_pub,
-                        "url": url_offre,
-                        "source": "emploi.ma",
-                        "pays": "Maroc"
+                        "url_offre": url_offre,
+                        "source": "emploima",
+                        "pays": "Maroc",
+                        "ville": region
                     }
                     toutes_offres.append(offre)
 
@@ -109,13 +106,14 @@ def collecter_offres(keyword="data", nb_pages=5):
     return toutes_offres
 
 def sauvegarder_bronze(offres, keyword):
-    date_today = datetime.now().strftime("%Y-%m-%d")
-    filename = f"emploima/{keyword}_{date_today}.json"
+    # ✅ Horodatage complet
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
+    filename = f"emploima/{keyword}_{timestamp}.json"
 
     data = {
-        "source": "emploi.ma",
+        "source": "emploima",
         "keyword": keyword,
-        "date_collecte": date_today,
+        "date_collecte": timestamp,
         "nb_offres": len(offres),
         "offres": offres
     }

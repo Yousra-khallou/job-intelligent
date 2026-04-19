@@ -7,10 +7,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-APP_ID = os.getenv("ADZUNA_APP_ID")
+APP_ID  = os.getenv("ADZUNA_APP_ID")
 APP_KEY = os.getenv("ADZUNA_APP_KEY")
 
-# Configuration MinIO
+# ✅ Endpoint Docker correct
 minio_client = boto3.client(
     's3',
     endpoint_url='http://minio:9000',
@@ -21,7 +21,6 @@ minio_client = boto3.client(
 
 BUCKET_BRONZE = 'bronze'
 
-# Collecter les offres Adzuna
 def collecter_offres(keyword="data engineer", nb_pages=5):
     toutes_offres = []
     base_url = "https://api.adzuna.com/v1/api/jobs/fr/search"
@@ -46,15 +45,15 @@ def collecter_offres(keyword="data engineer", nb_pages=5):
 
     return toutes_offres
 
-# Sauvegarder dans MinIO Bronze
 def sauvegarder_bronze(offres, keyword):
-    date_today = datetime.now().strftime("%Y-%m-%d")
-    filename = f"adzuna/{keyword}_{date_today}.json"
+    # ✅ Horodatage complet
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
+    filename = f"adzuna/{keyword}_{timestamp}.json"
 
     data = {
         "source": "adzuna",
         "keyword": keyword,
-        "date_collecte": date_today,
+        "date_collecte": timestamp,
         "nb_offres": len(offres),
         "offres": offres
     }
@@ -69,7 +68,6 @@ def sauvegarder_bronze(offres, keyword):
     print(f"Sauvegarde : bronze/{filename} ✓")
     return filename
 
-# Pipeline principal
 def run():
     keywords = [
         "data engineer",
@@ -87,7 +85,10 @@ def run():
         print(f"\nCollecte : {keyword}")
         offres = collecter_offres(keyword, nb_pages=5)
         print(f"Total : {len(offres)} offres")
-        sauvegarder_bronze(offres, keyword.replace(" ", "_"))
+        if offres:
+            sauvegarder_bronze(offres, keyword.replace(" ", "_"))
+        else:
+            print(f"  Aucune offre trouvee pour {keyword}")
 
     print("\nScraper Adzuna termine !")
 

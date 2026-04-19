@@ -1,0 +1,12 @@
+job_intelligent:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: postgres_db
+      port: 5432
+      user: admin
+      password: admin123
+      dbname: dwh_job_intelligent
+      schema: public
+      threads: 4

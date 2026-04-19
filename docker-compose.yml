@@ -30,10 +30,13 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://admin:admin123@postgres/job_intelligent
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      _PIP_ADDITIONAL_REQUIREMENTS: "pandas pyarrow boto3 psycopg2-binary requests beautifulsoup4 lxml python-dotenv dbt-core dbt-postgres"  
+      
     ports:
       - "8082:8080"
     volumes:
       - ./src/etl:/opt/airflow/dags
+      - ./dbt:/opt/airflow/dbt
     depends_on:
       - postgres
     command: standalone
@@ -44,9 +47,13 @@ services:
     environment:
       SPARK_MODE: master
       SPARK_MASTER_HOST: spark-master
+      PATH: /opt/spark/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin  # ← AJOUT
     ports:
       - "7077:7077"
       - "8083:8080"
+    volumes:
+      - ./src/etl:/opt/spark/jobs   # ← AJOUT
+      - ./jars:/opt/spark/extra-jars
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
 
   spark-worker-1:
@@ -57,8 +64,12 @@ services:
       SPARK_MASTER_URL: spark://spark-master:7077
       SPARK_WORKER_MEMORY: 2G
       SPARK_WORKER_CORES: 2
+      PATH: /opt/spark/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin  # ← AJOUT
     depends_on:
       - spark-master
+    volumes:
+      - ./src/etl:/opt/spark/jobs   # ← AJOUT
+      - ./jars:/opt/spark/extra-jars
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
 
   spark-worker-2:
@@ -69,10 +80,13 @@ services:
       SPARK_MASTER_URL: spark://spark-master:7077
       SPARK_WORKER_MEMORY: 2G
       SPARK_WORKER_CORES: 2
+      PATH: /opt/spark/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin  # ← AJOUT
     depends_on:
       - spark-master
+    volumes:
+      - ./src/etl:/opt/spark/jobs   # ← AJOUT
+      - ./jars:/opt/spark/extra-jars
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
-
   minio:
     image: minio/minio
     container_name: minio
@@ -85,7 +99,39 @@ services:
     volumes:
       - minio_data:/data
     command: server /data --console-address ":9001"
-
+  dbt:
+    image: ghcr.io/dbt-labs/dbt-postgres:1.7.0
+    container_name: dbt
+    environment:
+      DBT_PROFILES_DIR: /dbt
+    volumes:
+      - ./dbt:/dbt
+    depends_on:
+      - postgres
+    entrypoint: ["tail", "-f", "/dev/null"]
+  
+  fastapi:
+    image: python:3.11-slim
+    container_name: fastapi_nlp
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src/api:/app
+    working_dir: /app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - OLLAMA_HOST=http://host.docker.internal:11434
+    depends_on:
+      - postgres
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: >
+      bash -c "pip install fastapi uvicorn sentence-transformers
+      pdfplumber psycopg2-binary python-multipart numpy scipy
+      httpx &&
+      uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+  
+    
 volumes:
   postgres_data:
   minio_data:

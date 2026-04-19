@@ -10,6 +10,7 @@ load_dotenv()
 CLIENT_ID = os.getenv("FRANCE_TRAVAIL_CLIENT_ID")
 CLIENT_SECRET = os.getenv("FRANCE_TRAVAIL_CLIENT_SECRET")
 
+# ✅ Endpoint Docker correct
 minio_client = boto3.client(
     's3',
     endpoint_url='http://minio:9000',
@@ -58,13 +59,14 @@ def collecter_offres(token, keyword="data", nb_offres=100):
     return toutes_offres
 
 def sauvegarder_bronze(offres, keyword):
-    date_today = datetime.now().strftime("%Y-%m-%d")
-    filename = f"france_travail/{keyword}_{date_today}.json"
+    # ✅ Horodatage complet pour éviter écrasement si relance le même jour
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
+    filename = f"france_travail/{keyword}_{timestamp}.json"
 
     data = {
         "source": "france_travail",
         "keyword": keyword,
-        "date_collecte": date_today,
+        "date_collecte": timestamp,
         "nb_offres": len(offres),
         "offres": offres
     }
@@ -93,6 +95,10 @@ def run():
     print("=" * 50)
 
     token = get_token()
+    if not token:
+        print("Erreur : token non obtenu !")
+        return
+
     print("Token obtenu ✓")
 
     for keyword in keywords:
