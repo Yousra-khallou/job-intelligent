@@ -111,13 +111,15 @@ services:
     entrypoint: ["tail", "-f", "/dev/null"]
   
   fastapi:
-    image: python:3.11-slim
+    build:
+      context: ./src/api
+      dockerfile: Dockerfile
     container_name: fastapi_nlp
     ports:
       - "8000:8000"
     volumes:
       - ./src/api:/app
-    working_dir: /app
+      - ./src/api/cache:/app/cache
     environment:
       - PYTHONUNBUFFERED=1
       - OLLAMA_HOST=http://host.docker.internal:11434
@@ -125,11 +127,6 @@ services:
       - postgres
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    command: >
-      bash -c "pip install fastapi uvicorn sentence-transformers
-      pdfplumber psycopg2-binary python-multipart numpy scipy
-      httpx &&
-      uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
   
     
 volumes:

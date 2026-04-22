@@ -181,7 +181,7 @@ async def get_recommandations(email: str, top_k: int = 10):
             )
             recommandations.append({
                 "offre": offre,
-                "score": round(score * 100, 1),
+                "score": round(float(score) * 100, 1),
                 "explication": explication
             })
         
@@ -189,7 +189,7 @@ async def get_recommandations(email: str, top_k: int = 10):
         for offre, score in top_offres[5:]:
             recommandations.append({
                 "offre": offre,
-                "score": round(score * 100, 1),
+                "score": round(float(score) * 100, 1),
                 "explication": None
             })
         
@@ -229,14 +229,14 @@ async def recommandations_cv_direct(
             )
             recommandations.append({
                 "offre": offre,
-                "score": round(score * 100, 1),
+                "score": round(float(score) * 100, 1),
                 "explication": explication
             })
 
         for offre, score in top_offres[5:]:
             recommandations.append({
                 "offre": offre,
-                "score": round(score * 100, 1),
+                "score": round(float(score) * 100, 1),
                 "explication": None
             })
 
@@ -297,6 +297,10 @@ async def stats():
         "par_type_contrat": par_contrat
     }
 
+@app.get("/")
+async def root():
+    with open("/app/index.html", "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
