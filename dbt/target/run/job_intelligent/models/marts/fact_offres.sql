@@ -1,46 +1,18 @@
 
-  
+      
+        
+        
+        delete from "dwh_job_intelligent"."public"."fact_offres" as DBT_INTERNAL_DEST
+        where (offre_id) in (
+            select distinct offre_id
+            from "fact_offres__dbt_tmp081028943829" as DBT_INTERNAL_SOURCE
+        );
+
     
 
-  create  table "dwh_job_intelligent"."public"."fact_offres__dbt_tmp"
-  
-  
-    as
-  
-  (
-    WITH offres AS (
-    SELECT * FROM "dwh_job_intelligent"."public"."stg_offres"
-),
-dates AS (
-    SELECT * FROM "dwh_job_intelligent"."public"."dim_date"
-),
-entreprises AS (
-    SELECT * FROM "dwh_job_intelligent"."public"."dim_entreprise"
-),
-lieux AS (
-    SELECT * FROM "dwh_job_intelligent"."public"."dim_lieu"
-)
-SELECT
-    o.offre_id,
-    d.date_id,
-    e.entreprise_id,
-    l.lieu_id,
-    o.source,
-    o.titre,
-    o.type_contrat,
-    o.salaire_min,
-    o.salaire_max,
-    o.salaire_libelle,
-    o.rome_code,
-    o.rome_libelle,
-    o.experience,
-    o.description,
-    o.url_offre,
-    o.date_creation
-FROM offres o
-LEFT JOIN dates       d ON DATE(o.date_creation) = d.date_full
-LEFT JOIN entreprises e ON COALESCE(o.entreprise, 'Non renseigné') = e.nom
-LEFT JOIN lieux       l ON COALESCE(o.ville, 'Non renseigné') = l.ville
-                       AND COALESCE(o.pays, 'France') = l.pays
-  );
+    insert into "dwh_job_intelligent"."public"."fact_offres" ("offre_id", "date_id", "entreprise_id", "lieu_id", "source", "titre", "type_contrat", "salaire_min", "salaire_max", "salaire_libelle", "salaire_predit_eur", "salaire_confiance", "date_prediction", "rome_code", "rome_libelle", "experience", "description", "url_offre", "date_creation")
+    (
+        select "offre_id", "date_id", "entreprise_id", "lieu_id", "source", "titre", "type_contrat", "salaire_min", "salaire_max", "salaire_libelle", "salaire_predit_eur", "salaire_confiance", "date_prediction", "rome_code", "rome_libelle", "experience", "description", "url_offre", "date_creation"
+        from "fact_offres__dbt_tmp081028943829"
+    )
   

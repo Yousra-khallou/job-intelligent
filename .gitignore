@@ -21,3 +21,18 @@ desktop.ini
 
 jars/
 *.jar
+
+# Cache NLP / modèles
+src/api/cache/
+*.pkl
+*.npy
+
+# Logs
+*.log
+
+# Docker
+*.pid
+
+#dbt 
+dbt/target/
+dbt/logs/

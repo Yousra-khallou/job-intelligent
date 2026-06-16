@@ -62,7 +62,7 @@ class NLPEngine:
         self.offres_data = []
         self.offres_vectors = None
         self.nb_offres = 0
-        self.ollama_url = "http://host.docker.internal:11434"
+        self.ollama_url = "http://192.168.1.10:11434"
         log.info("Modèle chargé ")
 
     # ─── Extraction CV ────────────────────────────────────────────────────────
@@ -237,7 +237,7 @@ Réponds UNIQUEMENT avec ce format JSON :
 }}"""
 
         try:
-            async with httpx.AsyncClient(timeout=30) as client:
+            async with httpx.AsyncClient(timeout=120) as client:
                 response = await client.post(
                     f"{self.ollama_url}/api/generate",
                     json={
@@ -280,12 +280,17 @@ Réponds UNIQUEMENT avec ce format JSON :
 
     def _explication_fallback(self, competences, offre, score):
         """Explication sans Ollama si indisponible."""
-        desc_lower = offre['description'].lower()
+        desc_lower = (offre['description'] + " " + offre['titre']).lower()
+
+    # Skills du CV présents dans l'offre → points forts
         matching = [c for c in competences if c.lower() in desc_lower]
-        manquantes = [c for c in competences if c.lower() not in desc_lower]
+
+    # Skills demandés par l'offre mais absents du CV → vraiment à renforcer
+        offre_skills = [c for c in COMPETENCES_TECH if c.lower() in desc_lower]
+        manquantes = [c for c in offre_skills if c.lower() not in [s.lower() for s in competences]]
 
         return {
-            "points_forts": [f"Compétence '{c}' requise et présente" for c in matching[:3]] or ["Profil pertinent"],
-            "points_amelioration": [f"Renforcer '{c}'" for c in manquantes[:2]] or ["Personnaliser la candidature"],
-            "conseil": f"Score de {round(score*100,1)}% — candidature recommandée !"
+           "points_forts": [f"Compétence '{c}' requise et présente" for c in matching[:3]] or ["Profil pertinent"],
+           "points_amelioration": [f"À acquérir : '{c}'" for c in manquantes[:2]] or ["Personnaliser la candidature"],
+           "conseil": f"Score de {round(score*100,1)}% — candidature recommandée !"
         }

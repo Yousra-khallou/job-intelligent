@@ -5,7 +5,7 @@
   Pipeline automatique quotidien :
   1. Collecte (3 scrapers en parallèle) → MinIO Bronze
   2. Transformation pandas → MinIO Silver
-  3. Chargement Silver → PostgreSQL raw_offres
+  3. Chargement Silver → PostgreSQL raw_offres + dim_competence
   4. dbt run → dimensions + fact_offres
 =============================================================
 """
@@ -137,14 +137,13 @@ def run_silver_transform():
             })
             df_source['pays'] = 'Maroc'
             df_source = df_source.loc[:, ~df_source.columns.duplicated()]
-            # Génération offre_id sans problème d'index mixtes
             df_source = df_source.reset_index(drop=True)
             df_source['offre_id'] = [
                 str(abs(hash(
                     str(row.get('titre', '')) + '|' +
                     str(row.get('entreprise', '')) + '|' +
                     str(row.get('url_offre', ''))
-                ))% 999999999)
+                )) % 999999999)
                 for row in df_source.to_dict('records')
             ]
 
@@ -214,6 +213,123 @@ def run_silver_transform():
                 pct    = round(100 * nulls / total, 1) if total > 0 else 0
                 status = "✓" if pct < 10 else "⚠"
                 log.info(f"  {status} {col:20s} : {nulls} nulls ({pct}%)")
+
+        # ── AJOUT : Extraction automatique des compétences ───────────────────
+        log.info("=== Extraction des compétences depuis les offres ===")
+
+        # Dictionnaire compétences → catégorie
+        COMPETENCES = {
+            # Langages
+            'Python':           'Langage',
+            'SQL':              'Langage',
+            'Scala':            'Langage',
+            'Java':             'Langage',
+            'R':                'Langage',
+            'Bash':             'Langage',
+            'Pandas':           'Langage',
+            'NumPy':            'Langage',
+            # Big Data
+            'Apache Spark':     'Big Data',
+            'Spark':            'Big Data',
+            'Hadoop':           'Big Data',
+            'Kafka':            'Big Data',
+            'Hive':             'Big Data',
+            'Flink':            'Big Data',
+            # Orchestration & Transformation
+            'Airflow':          'Orchestration',
+            'dbt':              'Transformation',
+            'Talend':           'Transformation',
+            'Informatica':      'Transformation',
+            # Cloud & Stockage
+            'AWS':              'Cloud',
+            'Azure':            'Cloud',
+            'GCP':              'Cloud',
+            'S3':               'Cloud',
+            'MinIO':            'Stockage',
+            'HDFS':             'Stockage',
+            # Bases de données
+            'PostgreSQL':       'Base de données',
+            'MySQL':            'Base de données',
+            'MongoDB':          'Base de données',
+            'Cassandra':        'Base de données',
+            'Redis':            'Base de données',
+            'Snowflake':        'Data Warehouse',
+            'BigQuery':         'Data Warehouse',
+            'Redshift':         'Data Warehouse',
+            # ML / NLP
+            'Machine Learning': 'ML',
+            'Deep Learning':    'ML',
+            'NLP':              'ML',
+            'TensorFlow':       'ML',
+            'PyTorch':          'ML',
+            'Scikit-learn':     'ML',
+            'MLflow':           'ML',
+            'Hugging Face':     'ML',
+            # Visualisation
+            'Power BI':         'Visualisation',
+            'Tableau':          'Visualisation',
+            'Looker':           'Visualisation',
+            'Grafana':          'Visualisation',
+            'Matplotlib':       'Visualisation',
+            # DevOps / Infra
+            'Docker':           'DevOps',
+            'Kubernetes':       'DevOps',
+            'Git':              'DevOps',
+            'CI/CD':            'DevOps',
+            'Terraform':        'DevOps',
+            # API
+            'FastAPI':          'API',
+            'Flask':            'API',
+            'REST':             'API',
+        }
+
+        # Texte à analyser : titre + description
+        df_unified['_texte'] = (
+            df_unified['titre'].fillna('') + ' ' +
+            df_unified['description'].fillna('')
+        ).str.lower()
+
+        competences_detectees = {}
+        for comp, categorie in COMPETENCES.items():
+            # Recherche insensible à la casse
+            pattern = comp.lower()
+            found = df_unified['_texte'].str.contains(pattern, regex=False).any()
+            if found:
+                nb_offres = df_unified['_texte'].str.contains(pattern, regex=False).sum()
+                competences_detectees[comp] = {
+                    'categorie': categorie,
+                    'nb_offres': int(nb_offres)
+                }
+                log.info(f"  ✓ {comp:25s} ({categorie}) — {nb_offres} offres")
+
+        log.info(f"Total compétences détectées : {len(competences_detectees)}")
+
+        # Créer DataFrame compétences avec ID auto-incrémenté
+        df_competences = pd.DataFrame([
+            {
+                'competence_id': idx + 1,
+                'nom':           comp,
+                'categorie':     info['categorie'],
+                'nb_offres':     info['nb_offres']
+            }
+            for idx, (comp, info) in enumerate(competences_detectees.items())
+        ])
+
+        # Sauvegarder dans Silver
+        buffer = BytesIO()
+        df_competences.to_parquet(buffer, index=False)
+        buffer.seek(0)
+        parquet_bytes = buffer.getvalue()
+
+        minio.put_object(
+            Bucket='silver',
+            Key='competences/competences.parquet',
+            Body=parquet_bytes,
+            ContentLength=len(parquet_bytes),
+            ContentType='application/octet-stream'
+        )
+        log.info(f"✅ {len(df_competences)} compétences sauvegardées dans s3://silver/competences/competences.parquet")
+
     else:
         raise Exception("Aucune donnée Silver produite !")
 
@@ -229,9 +345,8 @@ def run_load_postgres():
 
 def run_dbt():
     import subprocess, os
-    # Créer dossier logs dans /tmp (accessible par airflow)
     os.makedirs('/tmp/dbt_logs', exist_ok=True)
-    
+
     result = subprocess.run(
         [
             'dbt', 'run',
@@ -251,7 +366,7 @@ def run_dbt():
 def run_dbt_test():
     import subprocess, os
     os.makedirs('/tmp/dbt_logs', exist_ok=True)
-    
+
     result = subprocess.run(
         [
             'dbt', 'test',
@@ -330,7 +445,8 @@ with DAG(
     #  [france_travail] ─┐
     #  [adzuna]          ─┼→ [silver_transform] → [load_postgres] → [dbt_run] → [dbt_test]
     #  [emploima]        ─┘
-    #
+    #         ↑
+    #  Extraction compétences incluse dans silver_transform
 
     [task_france_travail, task_adzuna, task_emploima] >> task_silver
     task_silver >> task_load_postgres

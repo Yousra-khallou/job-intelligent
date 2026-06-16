@@ -53,3 +53,638 @@
 [0m21:10:47.147702 [debug] [MainThread]: Connection 'debug' was properly closed.
 [0m21:10:47.150241 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7491ad123340>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7491ac471e40>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7491a96aec20>]}
 [0m21:10:47.153602 [debug] [MainThread]: Flushing usage events
+[0m18:00:51.446966 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964e2fa7bb0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964e0ccdf90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964e0ccdf30>]}
+
+
+============================== 18:00:51.458260 | 0591c828-fdb3-4103-911e-9b2eba5d5cf4 ==============================
+[0m18:00:51.458260 [info ] [MainThread]: Running with dbt=1.7.0
+[0m18:00:51.461041 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'version_check': 'True', 'fail_fast': 'False', 'log_path': '/dbt/logs', 'profiles_dir': '/dbt', 'debug': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'introspect': 'True', 'static_parser': 'True', 'invocation_command': 'dbt run --project-dir /dbt --profiles-dir /dbt', 'target_path': 'None', 'log_format': 'default', 'send_anonymous_usage_stats': 'True'}
+[0m18:00:51.850025 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '0591c828-fdb3-4103-911e-9b2eba5d5cf4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964e0d145e0>]}
+[0m18:00:51.982932 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '0591c828-fdb3-4103-911e-9b2eba5d5cf4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964df25e9e0>]}
+[0m18:00:51.986567 [info ] [MainThread]: Registered adapter: postgres=1.7.0
+[0m18:00:52.004066 [debug] [MainThread]: checksum: 8434eacd4ffdf0ca3ab22bf0e2d55b45306c9599613e842b959405abc489e606, vars: {}, profile: , target: , version: 1.7.0
+[0m18:00:52.051381 [info ] [MainThread]: Unable to do partial parsing because of a version mismatch
+[0m18:00:52.053701 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '0591c828-fdb3-4103-911e-9b2eba5d5cf4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964df25c430>]}
+[0m18:00:53.724904 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '0591c828-fdb3-4103-911e-9b2eba5d5cf4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964de36feb0>]}
+[0m18:00:53.807095 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '0591c828-fdb3-4103-911e-9b2eba5d5cf4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964de36fd30>]}
+[0m18:00:53.810300 [info ] [MainThread]: Found 5 models, 0 sources, 0 exposures, 0 metrics, 401 macros, 0 groups, 0 semantic models
+[0m18:00:53.813393 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '0591c828-fdb3-4103-911e-9b2eba5d5cf4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964df25edd0>]}
+[0m18:00:53.819424 [info ] [MainThread]: 
+[0m18:00:53.824274 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m18:00:53.831125 [debug] [ThreadPool]: Acquiring new postgres connection 'list_dwh_job_intelligent'
+[0m18:00:53.850871 [debug] [ThreadPool]: Using postgres connection "list_dwh_job_intelligent"
+[0m18:00:53.853506 [debug] [ThreadPool]: On list_dwh_job_intelligent: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "connection_name": "list_dwh_job_intelligent"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m18:00:53.855132 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m18:00:53.915494 [debug] [ThreadPool]: SQL status: SELECT 20 in 0.0 seconds
+[0m18:00:53.920629 [debug] [ThreadPool]: On list_dwh_job_intelligent: Close
+[0m18:00:53.927747 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_dwh_job_intelligent, now list_dwh_job_intelligent_public)
+[0m18:00:53.944881 [debug] [ThreadPool]: Using postgres connection "list_dwh_job_intelligent_public"
+[0m18:00:53.947987 [debug] [ThreadPool]: On list_dwh_job_intelligent_public: BEGIN
+[0m18:00:53.950907 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m18:00:53.972800 [debug] [ThreadPool]: SQL status: BEGIN in 0.0 seconds
+[0m18:00:53.975974 [debug] [ThreadPool]: Using postgres connection "list_dwh_job_intelligent_public"
+[0m18:00:53.978696 [debug] [ThreadPool]: On list_dwh_job_intelligent_public: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "connection_name": "list_dwh_job_intelligent_public"} */
+select
+      'dwh_job_intelligent' as database,
+      tablename as name,
+      schemaname as schema,
+      'table' as type
+    from pg_tables
+    where schemaname ilike 'public'
+    union all
+    select
+      'dwh_job_intelligent' as database,
+      viewname as name,
+      schemaname as schema,
+      'view' as type
+    from pg_views
+    where schemaname ilike 'public'
+    union all
+    select
+      'dwh_job_intelligent' as database,
+      matviewname as name,
+      schemaname as schema,
+      'materialized_view' as type
+    from pg_matviews
+    where schemaname ilike 'public'
+  
+[0m18:00:54.011948 [debug] [ThreadPool]: SQL status: SELECT 7 in 0.0 seconds
+[0m18:00:54.017290 [debug] [ThreadPool]: On list_dwh_job_intelligent_public: ROLLBACK
+[0m18:00:54.020788 [debug] [ThreadPool]: On list_dwh_job_intelligent_public: Close
+[0m18:00:54.037873 [debug] [MainThread]: Using postgres connection "master"
+[0m18:00:54.040970 [debug] [MainThread]: On master: BEGIN
+[0m18:00:54.043740 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m18:00:54.064427 [debug] [MainThread]: SQL status: BEGIN in 0.0 seconds
+[0m18:00:54.067599 [debug] [MainThread]: Using postgres connection "master"
+[0m18:00:54.070595 [debug] [MainThread]: On master: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "connection_name": "master"} */
+with relation as (
+        select
+            pg_rewrite.ev_class as class,
+            pg_rewrite.oid as id
+        from pg_rewrite
+    ),
+    class as (
+        select
+            oid as id,
+            relname as name,
+            relnamespace as schema,
+            relkind as kind
+        from pg_class
+    ),
+    dependency as (
+        select distinct
+            pg_depend.objid as id,
+            pg_depend.refobjid as ref
+        from pg_depend
+    ),
+    schema as (
+        select
+            pg_namespace.oid as id,
+            pg_namespace.nspname as name
+        from pg_namespace
+        where nspname != 'information_schema' and nspname not like 'pg\_%'
+    ),
+    referenced as (
+        select
+            relation.id AS id,
+            referenced_class.name ,
+            referenced_class.schema ,
+            referenced_class.kind
+        from relation
+        join class as referenced_class on relation.class=referenced_class.id
+        where referenced_class.kind in ('r', 'v', 'm')
+    ),
+    relationships as (
+        select
+            referenced.name as referenced_name,
+            referenced.schema as referenced_schema_id,
+            dependent_class.name as dependent_name,
+            dependent_class.schema as dependent_schema_id,
+            referenced.kind as kind
+        from referenced
+        join dependency on referenced.id=dependency.id
+        join class as dependent_class on dependency.ref=dependent_class.id
+        where
+            (referenced.name != dependent_class.name or
+             referenced.schema != dependent_class.schema)
+    )
+
+    select
+        referenced_schema.name as referenced_schema,
+        relationships.referenced_name as referenced_name,
+        dependent_schema.name as dependent_schema,
+        relationships.dependent_name as dependent_name
+    from relationships
+    join schema as dependent_schema on relationships.dependent_schema_id=dependent_schema.id
+    join schema as referenced_schema on relationships.referenced_schema_id=referenced_schema.id
+    group by referenced_schema, referenced_name, dependent_schema, dependent_name
+    order by referenced_schema, referenced_name, dependent_schema, dependent_name;
+[0m18:00:54.096266 [debug] [MainThread]: SQL status: SELECT 1 in 0.0 seconds
+[0m18:00:54.102044 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '0591c828-fdb3-4103-911e-9b2eba5d5cf4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964de3c21d0>]}
+[0m18:00:54.105279 [debug] [MainThread]: On master: ROLLBACK
+[0m18:00:54.108742 [debug] [MainThread]: Using postgres connection "master"
+[0m18:00:54.111754 [debug] [MainThread]: On master: BEGIN
+[0m18:00:54.115942 [debug] [MainThread]: SQL status: BEGIN in 0.0 seconds
+[0m18:00:54.118767 [debug] [MainThread]: On master: COMMIT
+[0m18:00:54.121689 [debug] [MainThread]: Using postgres connection "master"
+[0m18:00:54.124635 [debug] [MainThread]: On master: COMMIT
+[0m18:00:54.128077 [debug] [MainThread]: SQL status: COMMIT in 0.0 seconds
+[0m18:00:54.130963 [debug] [MainThread]: On master: Close
+[0m18:00:54.134931 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m18:00:54.140212 [info ] [MainThread]: 
+[0m18:00:54.161420 [debug] [Thread-1 (]: Began running node model.job_intelligent.stg_offres
+[0m18:00:54.164996 [info ] [Thread-1 (]: 1 of 5 START sql view model public.stg_offres .................................. [RUN]
+[0m18:00:54.169334 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_dwh_job_intelligent_public, now model.job_intelligent.stg_offres)
+[0m18:00:54.171823 [debug] [Thread-1 (]: Began compiling node model.job_intelligent.stg_offres
+[0m18:00:54.183721 [debug] [Thread-1 (]: Writing injected SQL for node "model.job_intelligent.stg_offres"
+[0m18:00:54.206890 [debug] [Thread-1 (]: Timing info for model.job_intelligent.stg_offres (compile): 18:00:54.173717 => 18:00:54.206403
+[0m18:00:54.209133 [debug] [Thread-1 (]: Began executing node model.job_intelligent.stg_offres
+[0m18:00:54.275160 [debug] [Thread-1 (]: Writing runtime sql for node "model.job_intelligent.stg_offres"
+[0m18:00:54.296512 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.stg_offres"
+[0m18:00:54.299083 [debug] [Thread-1 (]: On model.job_intelligent.stg_offres: BEGIN
+[0m18:00:54.301540 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m18:00:54.320156 [debug] [Thread-1 (]: SQL status: BEGIN in 0.0 seconds
+[0m18:00:54.322672 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.stg_offres"
+[0m18:00:54.325023 [debug] [Thread-1 (]: On model.job_intelligent.stg_offres: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.stg_offres"} */
+
+  create view "dwh_job_intelligent"."public"."stg_offres__dbt_tmp"
+    
+    
+  as (
+    SELECT
+    offre_id,
+    titre,
+    type_contrat,
+    experience,
+    description,
+    ville,
+    region,
+    code_postal,
+    latitude::FLOAT,
+    longitude::FLOAT,
+    pays,
+    entreprise,
+    secteur,
+    taille_entreprise,
+    salaire_libelle,
+    salaire_min::INT,
+    salaire_max::INT,
+    rome_code,
+    rome_libelle,
+    url_offre,
+    date_creation::TIMESTAMP,
+    source
+FROM raw_offres
+WHERE offre_id IS NOT NULL
+  AND titre IS NOT NULL
+  );
+[0m18:00:54.362528 [debug] [Thread-1 (]: SQL status: CREATE VIEW in 0.0 seconds
+[0m18:00:54.389502 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.stg_offres"
+[0m18:00:54.394723 [debug] [Thread-1 (]: On model.job_intelligent.stg_offres: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.stg_offres"} */
+alter table "dwh_job_intelligent"."public"."stg_offres" rename to "stg_offres__dbt_backup"
+[0m18:00:54.399915 [debug] [Thread-1 (]: SQL status: ALTER TABLE in 0.0 seconds
+[0m18:00:54.408553 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.stg_offres"
+[0m18:00:54.411382 [debug] [Thread-1 (]: On model.job_intelligent.stg_offres: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.stg_offres"} */
+alter table "dwh_job_intelligent"."public"."stg_offres__dbt_tmp" rename to "stg_offres"
+[0m18:00:54.415054 [debug] [Thread-1 (]: SQL status: ALTER TABLE in 0.0 seconds
+[0m18:00:54.454121 [debug] [Thread-1 (]: On model.job_intelligent.stg_offres: COMMIT
+[0m18:00:54.456950 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.stg_offres"
+[0m18:00:54.461012 [debug] [Thread-1 (]: On model.job_intelligent.stg_offres: COMMIT
+[0m18:00:54.465639 [debug] [Thread-1 (]: SQL status: COMMIT in 0.0 seconds
+[0m18:00:54.480905 [debug] [Thread-1 (]: Applying DROP to: "dwh_job_intelligent"."public"."stg_offres__dbt_backup"
+[0m18:00:54.492641 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.stg_offres"
+[0m18:00:54.494980 [debug] [Thread-1 (]: On model.job_intelligent.stg_offres: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.stg_offres"} */
+drop view if exists "dwh_job_intelligent"."public"."stg_offres__dbt_backup" cascade
+[0m18:00:54.508339 [debug] [Thread-1 (]: SQL status: DROP VIEW in 0.0 seconds
+[0m18:00:54.515104 [debug] [Thread-1 (]: Timing info for model.job_intelligent.stg_offres (execute): 18:00:54.211418 => 18:00:54.514710
+[0m18:00:54.519862 [debug] [Thread-1 (]: On model.job_intelligent.stg_offres: Close
+[0m18:00:54.523031 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '0591c828-fdb3-4103-911e-9b2eba5d5cf4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964de224ac0>]}
+[0m18:00:54.535283 [info ] [Thread-1 (]: 1 of 5 OK created sql view model public.stg_offres ............................. [[32mCREATE VIEW[0m in 0.35s]
+[0m18:00:54.540964 [debug] [Thread-1 (]: Finished running node model.job_intelligent.stg_offres
+[0m18:00:54.545750 [debug] [Thread-3 (]: Began running node model.job_intelligent.dim_date
+[0m18:00:54.547089 [debug] [Thread-4 (]: Began running node model.job_intelligent.dim_entreprise
+[0m18:00:54.548460 [debug] [Thread-2 (]: Began running node model.job_intelligent.dim_lieu
+[0m18:00:54.550620 [info ] [Thread-3 (]: 2 of 5 START sql table model public.dim_date ................................... [RUN]
+[0m18:00:54.566495 [debug] [Thread-3 (]: Acquiring new postgres connection 'model.job_intelligent.dim_date'
+[0m18:00:54.568797 [debug] [Thread-3 (]: Began compiling node model.job_intelligent.dim_date
+[0m18:00:54.555125 [info ] [Thread-4 (]: 3 of 5 START sql table model public.dim_entreprise ............................. [RUN]
+[0m18:00:54.559853 [info ] [Thread-2 (]: 4 of 5 START sql table model public.dim_lieu ................................... [RUN]
+[0m18:00:54.586084 [debug] [Thread-2 (]: Acquiring new postgres connection 'model.job_intelligent.dim_lieu'
+[0m18:00:54.589293 [debug] [Thread-2 (]: Began compiling node model.job_intelligent.dim_lieu
+[0m18:00:54.578296 [debug] [Thread-3 (]: Writing injected SQL for node "model.job_intelligent.dim_date"
+[0m18:00:54.582247 [debug] [Thread-4 (]: Acquiring new postgres connection 'model.job_intelligent.dim_entreprise'
+[0m18:00:54.606370 [debug] [Thread-4 (]: Began compiling node model.job_intelligent.dim_entreprise
+[0m18:00:54.599419 [debug] [Thread-2 (]: Writing injected SQL for node "model.job_intelligent.dim_lieu"
+[0m18:00:54.617647 [debug] [Thread-4 (]: Writing injected SQL for node "model.job_intelligent.dim_entreprise"
+[0m18:00:54.627379 [debug] [Thread-3 (]: Timing info for model.job_intelligent.dim_date (compile): 18:00:54.571655 => 18:00:54.626521
+[0m18:00:54.631769 [debug] [Thread-2 (]: Timing info for model.job_intelligent.dim_lieu (compile): 18:00:54.592494 => 18:00:54.630253
+[0m18:00:54.637586 [debug] [Thread-3 (]: Began executing node model.job_intelligent.dim_date
+[0m18:00:54.641740 [debug] [Thread-2 (]: Began executing node model.job_intelligent.dim_lieu
+[0m18:00:54.644280 [debug] [Thread-4 (]: Timing info for model.job_intelligent.dim_entreprise (compile): 18:00:54.608405 => 18:00:54.643089
+[0m18:00:54.735611 [debug] [Thread-4 (]: Began executing node model.job_intelligent.dim_entreprise
+[0m18:00:54.792684 [debug] [Thread-3 (]: Writing runtime sql for node "model.job_intelligent.dim_date"
+[0m18:00:54.816061 [debug] [Thread-4 (]: Writing runtime sql for node "model.job_intelligent.dim_entreprise"
+[0m18:00:54.845846 [debug] [Thread-2 (]: Writing runtime sql for node "model.job_intelligent.dim_lieu"
+[0m18:00:54.848733 [debug] [Thread-3 (]: Using postgres connection "model.job_intelligent.dim_date"
+[0m18:00:54.852215 [debug] [Thread-3 (]: On model.job_intelligent.dim_date: BEGIN
+[0m18:00:54.854837 [debug] [Thread-3 (]: Opening a new connection, currently in state init
+[0m18:00:54.856350 [debug] [Thread-4 (]: Using postgres connection "model.job_intelligent.dim_entreprise"
+[0m18:00:54.859942 [debug] [Thread-4 (]: On model.job_intelligent.dim_entreprise: BEGIN
+[0m18:00:54.860996 [debug] [Thread-2 (]: Using postgres connection "model.job_intelligent.dim_lieu"
+[0m18:00:54.862960 [debug] [Thread-4 (]: Opening a new connection, currently in state init
+[0m18:00:54.864861 [debug] [Thread-2 (]: On model.job_intelligent.dim_lieu: BEGIN
+[0m18:00:54.868197 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m18:00:54.876114 [debug] [Thread-3 (]: SQL status: BEGIN in 0.0 seconds
+[0m18:00:54.882409 [debug] [Thread-4 (]: SQL status: BEGIN in 0.0 seconds
+[0m18:00:54.883582 [debug] [Thread-3 (]: Using postgres connection "model.job_intelligent.dim_date"
+[0m18:00:54.885651 [debug] [Thread-4 (]: Using postgres connection "model.job_intelligent.dim_entreprise"
+[0m18:00:54.887168 [debug] [Thread-2 (]: SQL status: BEGIN in 0.0 seconds
+[0m18:00:54.888374 [debug] [Thread-3 (]: On model.job_intelligent.dim_date: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.dim_date"} */
+
+  
+    
+
+  create  table "dwh_job_intelligent"."public"."dim_date__dbt_tmp"
+  
+  
+    as
+  
+  (
+    WITH dates AS (
+    SELECT DISTINCT DATE(date_creation::TIMESTAMP) AS date_full
+    FROM "dwh_job_intelligent"."public"."stg_offres"
+    WHERE date_creation IS NOT NULL
+)
+SELECT
+    ROW_NUMBER() OVER (ORDER BY date_full) AS date_id,
+    date_full,
+    EXTRACT(YEAR  FROM date_full)::INT AS annee,
+    EXTRACT(MONTH FROM date_full)::INT AS mois,
+    EXTRACT(WEEK  FROM date_full)::INT AS semaine,
+    TO_CHAR(date_full, 'Day')          AS jour_semaine
+FROM dates
+  );
+  
+[0m18:00:54.890318 [debug] [Thread-4 (]: On model.job_intelligent.dim_entreprise: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.dim_entreprise"} */
+
+  
+    
+
+  create  table "dwh_job_intelligent"."public"."dim_entreprise__dbt_tmp"
+  
+  
+    as
+  
+  (
+    WITH entreprises AS (
+    SELECT DISTINCT
+        COALESCE(entreprise, 'Non renseigné') AS nom,
+        COALESCE(secteur, 'Non renseigné')    AS secteur,
+        COALESCE(taille_entreprise, 'Non renseigné') AS taille
+    FROM "dwh_job_intelligent"."public"."stg_offres"
+)
+SELECT
+    ROW_NUMBER() OVER (ORDER BY nom) AS entreprise_id,
+    nom,
+    secteur,
+    taille
+FROM entreprises
+  );
+  
+[0m18:00:54.892172 [debug] [Thread-2 (]: Using postgres connection "model.job_intelligent.dim_lieu"
+[0m18:00:54.896113 [debug] [Thread-2 (]: On model.job_intelligent.dim_lieu: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.dim_lieu"} */
+
+  
+    
+
+  create  table "dwh_job_intelligent"."public"."dim_lieu__dbt_tmp"
+  
+  
+    as
+  
+  (
+    WITH lieux AS (
+    SELECT DISTINCT
+        COALESCE(ville, 'Non renseigné') AS ville,
+        region,
+        COALESCE(pays, 'France')         AS pays,
+        code_postal,
+        latitude::FLOAT,
+        longitude::FLOAT
+    FROM "dwh_job_intelligent"."public"."stg_offres"
+)
+SELECT
+    ROW_NUMBER() OVER (ORDER BY ville) AS lieu_id,
+    ville,
+    region,
+    pays,
+    code_postal,
+    latitude,
+    longitude
+FROM lieux
+  );
+  
+[0m18:00:54.938220 [debug] [Thread-2 (]: SQL status: SELECT 680 in 0.0 seconds
+[0m18:00:54.946401 [debug] [Thread-3 (]: SQL status: SELECT 213 in 0.0 seconds
+[0m18:00:54.947215 [debug] [Thread-4 (]: SQL status: SELECT 1137 in 0.0 seconds
+[0m18:00:54.947924 [debug] [Thread-2 (]: Using postgres connection "model.job_intelligent.dim_lieu"
+[0m18:00:54.954455 [debug] [Thread-3 (]: Using postgres connection "model.job_intelligent.dim_date"
+[0m18:00:54.961989 [debug] [Thread-4 (]: Using postgres connection "model.job_intelligent.dim_entreprise"
+[0m18:00:54.963440 [debug] [Thread-2 (]: On model.job_intelligent.dim_lieu: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.dim_lieu"} */
+alter table "dwh_job_intelligent"."public"."dim_lieu" rename to "dim_lieu__dbt_backup"
+[0m18:00:54.965246 [debug] [Thread-3 (]: On model.job_intelligent.dim_date: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.dim_date"} */
+alter table "dwh_job_intelligent"."public"."dim_date" rename to "dim_date__dbt_backup"
+[0m18:00:54.967043 [debug] [Thread-4 (]: On model.job_intelligent.dim_entreprise: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.dim_entreprise"} */
+alter table "dwh_job_intelligent"."public"."dim_entreprise" rename to "dim_entreprise__dbt_backup"
+[0m18:00:54.969557 [debug] [Thread-2 (]: SQL status: ALTER TABLE in 0.0 seconds
+[0m18:00:54.972090 [debug] [Thread-3 (]: SQL status: ALTER TABLE in 0.0 seconds
+[0m18:00:54.973231 [debug] [Thread-4 (]: SQL status: ALTER TABLE in 0.0 seconds
+[0m18:00:54.980132 [debug] [Thread-2 (]: Using postgres connection "model.job_intelligent.dim_lieu"
+[0m18:00:54.989904 [debug] [Thread-3 (]: Using postgres connection "model.job_intelligent.dim_date"
+[0m18:00:54.996304 [debug] [Thread-4 (]: Using postgres connection "model.job_intelligent.dim_entreprise"
+[0m18:00:54.998158 [debug] [Thread-2 (]: On model.job_intelligent.dim_lieu: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.dim_lieu"} */
+alter table "dwh_job_intelligent"."public"."dim_lieu__dbt_tmp" rename to "dim_lieu"
+[0m18:00:54.999984 [debug] [Thread-3 (]: On model.job_intelligent.dim_date: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.dim_date"} */
+alter table "dwh_job_intelligent"."public"."dim_date__dbt_tmp" rename to "dim_date"
+[0m18:00:55.002456 [debug] [Thread-4 (]: On model.job_intelligent.dim_entreprise: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.dim_entreprise"} */
+alter table "dwh_job_intelligent"."public"."dim_entreprise__dbt_tmp" rename to "dim_entreprise"
+[0m18:00:55.005400 [debug] [Thread-2 (]: SQL status: ALTER TABLE in 0.0 seconds
+[0m18:00:55.007223 [debug] [Thread-3 (]: SQL status: ALTER TABLE in 0.0 seconds
+[0m18:00:55.009148 [debug] [Thread-4 (]: SQL status: ALTER TABLE in 0.0 seconds
+[0m18:00:55.019520 [debug] [Thread-2 (]: On model.job_intelligent.dim_lieu: COMMIT
+[0m18:00:55.024597 [debug] [Thread-3 (]: On model.job_intelligent.dim_date: COMMIT
+[0m18:00:55.030573 [debug] [Thread-4 (]: On model.job_intelligent.dim_entreprise: COMMIT
+[0m18:00:55.032807 [debug] [Thread-2 (]: Using postgres connection "model.job_intelligent.dim_lieu"
+[0m18:00:55.035042 [debug] [Thread-3 (]: Using postgres connection "model.job_intelligent.dim_date"
+[0m18:00:55.037277 [debug] [Thread-4 (]: Using postgres connection "model.job_intelligent.dim_entreprise"
+[0m18:00:55.039203 [debug] [Thread-2 (]: On model.job_intelligent.dim_lieu: COMMIT
+[0m18:00:55.041360 [debug] [Thread-3 (]: On model.job_intelligent.dim_date: COMMIT
+[0m18:00:55.043345 [debug] [Thread-4 (]: On model.job_intelligent.dim_entreprise: COMMIT
+[0m18:00:55.051039 [debug] [Thread-3 (]: SQL status: COMMIT in 0.0 seconds
+[0m18:00:55.051843 [debug] [Thread-2 (]: SQL status: COMMIT in 0.0 seconds
+[0m18:00:55.052587 [debug] [Thread-4 (]: SQL status: COMMIT in 0.0 seconds
+[0m18:00:55.058095 [debug] [Thread-3 (]: Applying DROP to: "dwh_job_intelligent"."public"."dim_date__dbt_backup"
+[0m18:00:55.065056 [debug] [Thread-2 (]: Applying DROP to: "dwh_job_intelligent"."public"."dim_lieu__dbt_backup"
+[0m18:00:55.071534 [debug] [Thread-4 (]: Applying DROP to: "dwh_job_intelligent"."public"."dim_entreprise__dbt_backup"
+[0m18:00:55.078502 [debug] [Thread-3 (]: Using postgres connection "model.job_intelligent.dim_date"
+[0m18:00:55.081954 [debug] [Thread-2 (]: Using postgres connection "model.job_intelligent.dim_lieu"
+[0m18:00:55.085098 [debug] [Thread-4 (]: Using postgres connection "model.job_intelligent.dim_entreprise"
+[0m18:00:55.087471 [debug] [Thread-3 (]: On model.job_intelligent.dim_date: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.dim_date"} */
+drop table if exists "dwh_job_intelligent"."public"."dim_date__dbt_backup" cascade
+[0m18:00:55.089834 [debug] [Thread-2 (]: On model.job_intelligent.dim_lieu: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.dim_lieu"} */
+drop table if exists "dwh_job_intelligent"."public"."dim_lieu__dbt_backup" cascade
+[0m18:00:55.092333 [debug] [Thread-4 (]: On model.job_intelligent.dim_entreprise: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.dim_entreprise"} */
+drop table if exists "dwh_job_intelligent"."public"."dim_entreprise__dbt_backup" cascade
+[0m18:00:55.100658 [debug] [Thread-3 (]: SQL status: DROP TABLE in 0.0 seconds
+[0m18:00:55.104366 [debug] [Thread-2 (]: SQL status: DROP TABLE in 0.0 seconds
+[0m18:00:55.105450 [debug] [Thread-4 (]: SQL status: DROP TABLE in 0.0 seconds
+[0m18:00:55.108876 [debug] [Thread-3 (]: Timing info for model.job_intelligent.dim_date (execute): 18:00:54.645836 => 18:00:55.108342
+[0m18:00:55.114949 [debug] [Thread-2 (]: Timing info for model.job_intelligent.dim_lieu (execute): 18:00:54.675683 => 18:00:55.114432
+[0m18:00:55.121425 [debug] [Thread-4 (]: Timing info for model.job_intelligent.dim_entreprise (execute): 18:00:54.761939 => 18:00:55.120703
+[0m18:00:55.124516 [debug] [Thread-3 (]: On model.job_intelligent.dim_date: Close
+[0m18:00:55.127593 [debug] [Thread-2 (]: On model.job_intelligent.dim_lieu: Close
+[0m18:00:55.130485 [debug] [Thread-4 (]: On model.job_intelligent.dim_entreprise: Close
+[0m18:00:55.134181 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '0591c828-fdb3-4103-911e-9b2eba5d5cf4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964de2ba0b0>]}
+[0m18:00:55.137327 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '0591c828-fdb3-4103-911e-9b2eba5d5cf4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964de24c4f0>]}
+[0m18:00:55.144339 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '0591c828-fdb3-4103-911e-9b2eba5d5cf4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964de23b610>]}
+[0m18:00:55.147292 [info ] [Thread-3 (]: 2 of 5 OK created sql table model public.dim_date .............................. [[32mSELECT 213[0m in 0.57s]
+[0m18:00:55.150917 [info ] [Thread-2 (]: 4 of 5 OK created sql table model public.dim_lieu .............................. [[32mSELECT 680[0m in 0.55s]
+[0m18:00:55.154541 [info ] [Thread-4 (]: 3 of 5 OK created sql table model public.dim_entreprise ........................ [[32mSELECT 1137[0m in 0.56s]
+[0m18:00:55.158655 [debug] [Thread-3 (]: Finished running node model.job_intelligent.dim_date
+[0m18:00:55.162587 [debug] [Thread-2 (]: Finished running node model.job_intelligent.dim_lieu
+[0m18:00:55.166836 [debug] [Thread-4 (]: Finished running node model.job_intelligent.dim_entreprise
+[0m18:00:55.176580 [debug] [Thread-1 (]: Began running node model.job_intelligent.fact_offres
+[0m18:00:55.180030 [info ] [Thread-1 (]: 5 of 5 START sql incremental model public.fact_offres .......................... [RUN]
+[0m18:00:55.185050 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.job_intelligent.stg_offres, now model.job_intelligent.fact_offres)
+[0m18:00:55.187758 [debug] [Thread-1 (]: Began compiling node model.job_intelligent.fact_offres
+[0m18:00:55.208972 [debug] [Thread-1 (]: Writing injected SQL for node "model.job_intelligent.fact_offres"
+[0m18:00:55.236812 [debug] [Thread-1 (]: Timing info for model.job_intelligent.fact_offres (compile): 18:00:55.190218 => 18:00:55.235913
+[0m18:00:55.239948 [debug] [Thread-1 (]: Began executing node model.job_intelligent.fact_offres
+[0m18:00:55.317954 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.fact_offres"
+[0m18:00:55.321342 [debug] [Thread-1 (]: On model.job_intelligent.fact_offres: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.fact_offres"} */
+
+    
+  
+    
+
+  create temporary table "fact_offres__dbt_tmp180055298418"
+  
+  
+    as
+  
+  (
+    
+
+WITH offres AS (
+    SELECT * FROM "dwh_job_intelligent"."public"."stg_offres"
+),
+dates AS (
+    SELECT * FROM "dwh_job_intelligent"."public"."dim_date"
+),
+entreprises AS (
+    SELECT * FROM "dwh_job_intelligent"."public"."dim_entreprise"
+),
+lieux AS (
+    SELECT * FROM "dwh_job_intelligent"."public"."dim_lieu"
+)
+SELECT
+    o.offre_id,
+    d.date_id,
+    e.entreprise_id,
+    l.lieu_id,
+    o.source,
+    o.titre,
+    o.type_contrat,
+    o.salaire_min,
+    o.salaire_max,
+    o.salaire_libelle,
+    -- Colonnes ML (seront peuplées par script Python post-dbt)
+    NULL::NUMERIC(10,2) AS salaire_predit_eur,
+    NULL::VARCHAR(10)   AS salaire_confiance,
+    NULL::TIMESTAMP     AS date_prediction,
+    o.rome_code,
+    o.rome_libelle,
+    o.experience,
+    o.description,
+    o.url_offre,
+    o.date_creation
+FROM offres o
+LEFT JOIN dates       d ON DATE(o.date_creation) = d.date_full
+LEFT JOIN entreprises e ON COALESCE(o.entreprise, 'Non renseigné') = e.nom
+LEFT JOIN lieux       l ON COALESCE(o.ville, 'Non renseigné') = l.ville
+                       AND COALESCE(o.pays, 'France') = l.pays
+
+
+WHERE o.offre_id NOT IN (SELECT offre_id FROM "dwh_job_intelligent"."public"."fact_offres")
+
+  );
+  
+  
+[0m18:00:55.324355 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m18:00:55.865984 [debug] [Thread-1 (]: SQL status: SELECT 0 in 1.0 seconds
+[0m18:00:55.878574 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.fact_offres"
+[0m18:00:55.880935 [debug] [Thread-1 (]: On model.job_intelligent.fact_offres: BEGIN
+[0m18:00:55.883949 [debug] [Thread-1 (]: SQL status: BEGIN in 0.0 seconds
+[0m18:00:55.886688 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.fact_offres"
+[0m18:00:55.889316 [debug] [Thread-1 (]: On model.job_intelligent.fact_offres: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.fact_offres"} */
+
+      select
+          column_name,
+          data_type,
+          character_maximum_length,
+          numeric_precision,
+          numeric_scale
+
+      from INFORMATION_SCHEMA.columns
+      where table_name = 'fact_offres__dbt_tmp180055298418'
+        
+      order by ordinal_position
+
+  
+[0m18:00:55.931992 [debug] [Thread-1 (]: SQL status: SELECT 19 in 0.0 seconds
+[0m18:00:55.947978 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.fact_offres"
+[0m18:00:55.951271 [debug] [Thread-1 (]: On model.job_intelligent.fact_offres: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.fact_offres"} */
+
+      select
+          column_name,
+          data_type,
+          character_maximum_length,
+          numeric_precision,
+          numeric_scale
+
+      from "dwh_job_intelligent".INFORMATION_SCHEMA.columns
+      where table_name = 'fact_offres'
+        
+        and table_schema = 'public'
+        
+      order by ordinal_position
+
+  
+[0m18:00:55.960523 [debug] [Thread-1 (]: SQL status: SELECT 16 in 0.0 seconds
+[0m18:00:55.993183 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.fact_offres"
+[0m18:00:55.995317 [debug] [Thread-1 (]: On model.job_intelligent.fact_offres: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.fact_offres"} */
+
+      select
+          column_name,
+          data_type,
+          character_maximum_length,
+          numeric_precision,
+          numeric_scale
+
+      from INFORMATION_SCHEMA.columns
+      where table_name = 'fact_offres__dbt_tmp180055298418'
+        
+      order by ordinal_position
+
+  
+[0m18:00:56.001794 [debug] [Thread-1 (]: SQL status: SELECT 19 in 0.0 seconds
+[0m18:00:56.008574 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.fact_offres"
+[0m18:00:56.010965 [debug] [Thread-1 (]: On model.job_intelligent.fact_offres: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.fact_offres"} */
+
+      select
+          column_name,
+          data_type,
+          character_maximum_length,
+          numeric_precision,
+          numeric_scale
+
+      from "dwh_job_intelligent".INFORMATION_SCHEMA.columns
+      where table_name = 'fact_offres'
+        
+        and table_schema = 'public'
+        
+      order by ordinal_position
+
+  
+[0m18:00:56.016075 [debug] [Thread-1 (]: SQL status: SELECT 16 in 0.0 seconds
+[0m18:00:56.030895 [debug] [Thread-1 (]: 
+    In "dwh_job_intelligent"."public"."fact_offres":
+        Schema changed: True
+        Source columns not in target: [<Column salaire_predit_eur (numeric(10,2))>, <Column salaire_confiance (character varying(10))>, <Column date_prediction (timestamp without time zone)>]
+        Target columns not in source: []
+        New column types: []
+  
+[0m18:00:56.050256 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.fact_offres"
+[0m18:00:56.052771 [debug] [Thread-1 (]: On model.job_intelligent.fact_offres: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.fact_offres"} */
+
+    alter table "dwh_job_intelligent"."public"."fact_offres"
+
+            
+               add column salaire_predit_eur numeric(10,2),
+            
+               add column salaire_confiance character varying(10),
+            
+               add column date_prediction timestamp without time zone
+            
+
+            
+  
+[0m18:00:56.064241 [debug] [Thread-1 (]: SQL status: ALTER TABLE in 0.0 seconds
+[0m18:00:56.068324 [debug] [Thread-1 (]: 
+    In "dwh_job_intelligent"."public"."fact_offres":
+        Schema change approach: sync_all_columns
+        Columns added: [<Column salaire_predit_eur (numeric(10,2))>, <Column salaire_confiance (character varying(10))>, <Column date_prediction (timestamp without time zone)>]
+        Columns removed: []
+        Data types changed: []
+  
+[0m18:00:56.108296 [debug] [Thread-1 (]: Writing runtime sql for node "model.job_intelligent.fact_offres"
+[0m18:00:56.139338 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.fact_offres"
+[0m18:00:56.142483 [debug] [Thread-1 (]: On model.job_intelligent.fact_offres: /* {"app": "dbt", "dbt_version": "1.7.0", "profile_name": "job_intelligent", "target_name": "dev", "node_id": "model.job_intelligent.fact_offres"} */
+
+      
+        
+            delete from "dwh_job_intelligent"."public"."fact_offres"
+            where (
+                offre_id) in (
+                select (offre_id)
+                from "fact_offres__dbt_tmp180055298418"
+            );
+
+        
+    
+
+    insert into "dwh_job_intelligent"."public"."fact_offres" ("offre_id", "date_id", "entreprise_id", "lieu_id", "source", "titre", "type_contrat", "salaire_min", "salaire_max", "salaire_libelle", "salaire_predit_eur", "salaire_confiance", "date_prediction", "rome_code", "rome_libelle", "experience", "description", "url_offre", "date_creation")
+    (
+        select "offre_id", "date_id", "entreprise_id", "lieu_id", "source", "titre", "type_contrat", "salaire_min", "salaire_max", "salaire_libelle", "salaire_predit_eur", "salaire_confiance", "date_prediction", "rome_code", "rome_libelle", "experience", "description", "url_offre", "date_creation"
+        from "fact_offres__dbt_tmp180055298418"
+    )
+  
+[0m18:00:56.149447 [debug] [Thread-1 (]: SQL status: INSERT 0 0 in 0.0 seconds
+[0m18:00:56.156023 [debug] [Thread-1 (]: On model.job_intelligent.fact_offres: COMMIT
+[0m18:00:56.158855 [debug] [Thread-1 (]: Using postgres connection "model.job_intelligent.fact_offres"
+[0m18:00:56.161772 [debug] [Thread-1 (]: On model.job_intelligent.fact_offres: COMMIT
+[0m18:00:56.168025 [debug] [Thread-1 (]: SQL status: COMMIT in 0.0 seconds
+[0m18:00:56.172470 [debug] [Thread-1 (]: Timing info for model.job_intelligent.fact_offres (execute): 18:00:55.242573 => 18:00:56.171952
+[0m18:00:56.175440 [debug] [Thread-1 (]: On model.job_intelligent.fact_offres: Close
+[0m18:00:56.179379 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '0591c828-fdb3-4103-911e-9b2eba5d5cf4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964de3c50f0>]}
+[0m18:00:56.182960 [info ] [Thread-1 (]: 5 of 5 OK created sql incremental model public.fact_offres ..................... [[32mINSERT 0 0[0m in 1.00s]
+[0m18:00:56.187441 [debug] [Thread-1 (]: Finished running node model.job_intelligent.fact_offres
+[0m18:00:56.193783 [debug] [MainThread]: Using postgres connection "master"
+[0m18:00:56.196676 [debug] [MainThread]: On master: BEGIN
+[0m18:00:56.199764 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m18:00:56.268041 [debug] [MainThread]: SQL status: BEGIN in 0.0 seconds
+[0m18:00:56.270496 [debug] [MainThread]: On master: COMMIT
+[0m18:00:56.273151 [debug] [MainThread]: Using postgres connection "master"
+[0m18:00:56.275488 [debug] [MainThread]: On master: COMMIT
+[0m18:00:56.278191 [debug] [MainThread]: SQL status: COMMIT in 0.0 seconds
+[0m18:00:56.280374 [debug] [MainThread]: On master: Close
+[0m18:00:56.286806 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m18:00:56.292267 [debug] [MainThread]: Connection 'model.job_intelligent.fact_offres' was properly closed.
+[0m18:00:56.295750 [debug] [MainThread]: Connection 'model.job_intelligent.dim_date' was properly closed.
+[0m18:00:56.298154 [debug] [MainThread]: Connection 'model.job_intelligent.dim_entreprise' was properly closed.
+[0m18:00:56.300082 [debug] [MainThread]: Connection 'model.job_intelligent.dim_lieu' was properly closed.
+[0m18:00:56.302009 [info ] [MainThread]: 
+[0m18:00:56.304442 [info ] [MainThread]: Finished running 1 view model, 3 table models, 1 incremental model in 0 hours 0 minutes and 2.48 seconds (2.48s).
+[0m18:00:56.309330 [debug] [MainThread]: Command end result
+[0m18:00:56.351555 [info ] [MainThread]: 
+[0m18:00:56.353794 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m18:00:56.356020 [info ] [MainThread]: 
+[0m18:00:56.358097 [info ] [MainThread]: Done. PASS=5 WARN=0 ERROR=0 SKIP=0 TOTAL=5
+[0m18:00:56.362646 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": true, "command_wall_clock_time": 5.0307713, "process_user_time": 7.705478, "process_kernel_time": 1.309593, "process_mem_max_rss": "114116", "process_in_blocks": "99728", "process_out_blocks": "664"}
+[0m18:00:56.365464 [debug] [MainThread]: Command `dbt run` succeeded at 18:00:56.365217 after 5.03 seconds
+[0m18:00:56.367587 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964e2fa7bb0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964de224ac0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7964df510fd0>]}
+[0m18:00:56.369664 [debug] [MainThread]: Flushing usage events
+[0m18:00:57.725634 [debug] [MainThread]: Error sending anonymous usage statistics. Disabling tracking for this execution. If you wish to permanently disable tracking, see: https://docs.getdbt.com/reference/global-configs#send-anonymous-usage-stats.

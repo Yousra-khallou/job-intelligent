@@ -1492,7 +1492,6 @@
         <button class="tab-btn active" onclick="switchTab('inscription',this)">📋 Créer mon profil</button>
         <button class="tab-btn" onclick="switchTab('connexion',this)">🔑 Mon espace</button>
         <button class="tab-btn" onclick="switchTab('direct',this)">⚡ Essai rapide</button>
-        <button class="tab-btn" onclick="switchTab('salaire',this)">💰 Estimer salaire</button>
       </div>
 
       <!-- INSCRIPTION -->
@@ -1596,24 +1595,6 @@
           <div id="resD" style="margin-top:24px"></div>
         </div>
       </div>
-      <!-- SALAIRE -->
-      <div id="tab-salaire" class="tab-pane">
-        <div class="app-card">
-          <div class="app-card-title">Estimez votre salaire</div>
-          <div class="app-card-sub">Notre IA analyse le marché pour estimer votre rémunération selon le poste, le pays et le contrat.</div>
-          <div class="form-grid">
-            <div class="form-group"><label>Titre du poste</label><input type="text" id="stitre" placeholder="Data Engineer Senior" required></div>
-            <div class="form-group"><label>Pays</label><input type="text" id="spays" value="france"></div>
-            <div class="form-group full"><label>Type de contrat</label><input type="text" id="scontrat" value="cdi"></div>
-          </div>
-          <button class="btn-submit" onclick="handleSalary()">💰 Estimer mon salaire</button>
-          <div class="loading-box" id="loadS">
-            <div class="loader"></div>
-            <div class="loading-title">Analyse du marché...</div>
-          </div>
-          <div id="resS" style="margin-top:20px"></div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -1679,7 +1660,7 @@
       document.getElementById('app').scrollIntoView({ behavior: 'smooth' });
       setTimeout(() => {
         const btns = document.querySelectorAll('.tab-btn');
-        const map = { inscription: 0, connexion: 1, direct: 2, salaire: 3 };
+        const map = { inscription: 0, connexion: 1, direct: 2 };
         if (map[tab] != null) switchTab(tab, btns[map[tab]]);
       }, 600);
     }
@@ -1820,14 +1801,7 @@
       jobs.forEach((rec, idx) => {
         const o = rec.offre, s = rec.score;
         const cls = s >= 80 ? 'pct-hi' : s >= 60 ? 'pct-md' : 'pct-lo';
-        const salMin = o.salaire_min, salMax = o.salaire_max;
-        const salPred = o.salaire_predit_eur, salConf = o.salaire_confiance;
-        let sal = '';
-        if (salMin && salMax && Number(salMin) > 0 && Number(salMax) > 0) {
-          sal = `💰 ${Number(salMin).toLocaleString()}–${Number(salMax).toLocaleString()} €`;
-        } else if (salPred) {
-          sal = `💰 ~${Number(salPred).toLocaleString()} €/mois <span style="font-size:11px;color:var(--gray);font-weight:500">(estimation ${salConf || 'moyenne'})</span>`;
-        }
+        const sal = o.salaire_min && o.salaire_max ? `💰 ${Number(o.salaire_min).toLocaleString()}–${Number(o.salaire_max).toLocaleString()} €` : '';
         const exp = rec.explication;
         let aiHtml = '';
         if (exp) {
@@ -1866,42 +1840,6 @@
       const el = document.getElementById(id);
       el.textContent = msg; el.classList.add('show');
       setTimeout(() => el.classList.remove('show'), 6000);
-    }
-
-
-    async function handleSalary() {
-      const titre = document.getElementById('stitre').value.trim();
-      const pays = document.getElementById('spays').value.trim() || 'france';
-      const contrat = document.getElementById('scontrat').value.trim() || 'cdi';
-      if (!titre) { alert('Veuillez entrer un titre de poste'); return; }
-
-      startLoad('loadS');
-      document.getElementById('resS').innerHTML = '';
-      try {
-        const r = await fetch(`${API}/salary/predict-quick?titre=${encodeURIComponent(titre)}&pays=${encodeURIComponent(pays)}&type_contrat=${encodeURIComponent(contrat)}`);
-        const d = await r.json();
-        stopLoad('loadS');
-        if (!r.ok) throw new Error(d.detail || 'Erreur de prédiction');
-
-        const confColor = d.confiance === 'haute' ? 'var(--green)' : d.confiance === 'moyenne' ? 'var(--yellow)' : 'var(--pink)';
-        document.getElementById('resS').innerHTML = `
-          <div class="app-card" style="background:var(--purple-pale);border-color:rgba(124,58,237,.15);animation:up .4s ease forwards">
-            <div style="font-size:32px;font-weight:900;color:var(--text);margin-bottom:4px">${Number(d.salaire_estime_eur).toLocaleString()} €<span style="font-size:16px;color:var(--gray)">/mois</span></div>
-            <div style="font-size:14px;color:var(--gray);font-weight:600;margin-bottom:16px">Fourchette : ${Number(d.fourchette_basse).toLocaleString()} – ${Number(d.fourchette_haute).toLocaleString()} €</div>
-            <div style="display:inline-flex;align-items:center;gap:8px;background:#fff;padding:8px 16px;border-radius:100px;font-size:13px;font-weight:700;color:${confColor};border:1.5px solid ${confColor}22">
-              <span style="width:8px;height:8px;border-radius:50%;background:${confColor};display:inline-block"></span>
-              Confiance ${d.confiance}
-            </div>
-            <div style="margin-top:16px;font-size:13px;color:var(--gray);font-weight:500">
-              ${d.features_utilisees.is_senior ? '✅ Senior' : '⚪ Non senior'} · 
-              ${d.features_utilisees.has_tech ? '✅ Tech avancée' : '⚪ Tech standard'} · 
-              ${d.features_utilisees.pays || pays}
-            </div>
-          </div>`;
-      } catch (err) {
-        stopLoad('loadS');
-        document.getElementById('resS').innerHTML = `<div class="alert alert-err show">❌ ${err.message}</div>`;
-      }
     }
 
     async function loadStats() {

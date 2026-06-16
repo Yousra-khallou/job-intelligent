@@ -16,8 +16,11 @@ RUN pip install --no-cache-dir \
     scipy \
     httpx \
     pdfplumber \
-    sentence-transformers
+    sentence-transformers \
+    pandas \
+    scikit-learn \
+    boto3
 
 COPY . .
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

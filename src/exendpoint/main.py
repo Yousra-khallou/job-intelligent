@@ -25,7 +25,6 @@ from models import CandidatCreate, RecommandationRequest
 
 # ── Salary Prediction ──────────────────────────────────────────────────────────
 from salary_routes import router as salary_router       # endpoints /api/salary/*
-from salary_predictor import predict_salary
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -71,39 +70,6 @@ async def startup_event():
     # ─────────────────────────────────────────────────────────────────────────
 
     log.info("API prête !")
-
-
-
-# ─── Enrichissement salaire ML ──────────────────────────────────────────────
-
-def _enrich_salaire(offre: dict) -> dict:
-    """
-    Si l'offre n'a pas de salaire connu (salaire_min null ou 0),
-    prédit le salaire via le modèle ML et injecte :
-      - salaire_predit_eur
-      - salaire_confiance
-    """
-    smin = offre.get("salaire_min")
-    smax = offre.get("salaire_max")
-    if smin and smax and float(smin) > 0 and float(smax) > 0:
-        return offre
-
-    try:
-        pred = predict_salary(
-            titre=offre.get("titre", ""),
-            description=offre.get("description", ""),
-            pays=offre.get("pays", "france"),
-            type_contrat=offre.get("type_contrat", "cdi"),
-            source=offre.get("source", "inconnu"),
-            secteur=offre.get("secteur", "inconnu"),
-            taille_entreprise="inconnu",
-        )
-        offre["salaire_predit_eur"] = pred["salaire_estime_eur"]
-        offre["salaire_confiance"]  = pred["confiance"]
-    except Exception as e:
-        log.warning(f"Prédiction salaire échouée pour offre {offre.get('offre_id')}: {e}")
-
-    return offre
 
 
 # ─── Routes Candidat → app_job_intelligent ───────────────────────────────────
@@ -222,7 +188,6 @@ async def get_recommandations(email: str, top_k: int = 10):
 
         recommandations = []
         for offre, score in top_offres[:5]:
-            offre = _enrich_salaire(offre)
             explication = await nlp_engine.generer_explication_ollama(
                 cv_texte=texte_cv,
                 competences=competences,
@@ -236,7 +201,6 @@ async def get_recommandations(email: str, top_k: int = 10):
             })
 
         for offre, score in top_offres[5:]:
-            offre = _enrich_salaire(offre)
             recommandations.append({
                 "offre":       offre,
                 "score":       round(float(score) * 100, 1),
@@ -271,7 +235,6 @@ async def recommandations_cv_direct(
 
         recommandations = []
         for offre, score in top_offres[:5]:
-            offre = _enrich_salaire(offre)
             explication = await nlp_engine.generer_explication_ollama(
                 cv_texte=texte_cv,
                 competences=competences,
@@ -285,7 +248,6 @@ async def recommandations_cv_direct(
             })
 
         for offre, score in top_offres[5:]:
-            offre = _enrich_salaire(offre)
             recommandations.append({
                 "offre":       offre,
                 "score":       round(float(score) * 100, 1),
