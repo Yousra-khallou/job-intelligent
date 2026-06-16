@@ -226,9 +226,6 @@ docker ps
 Server   : localhost
 Port     : 5433
 Database : dwh_job_intelligent
-Username : admin
-Password : admin123
-```
 
 ---
 
