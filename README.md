@@ -22,18 +22,19 @@ Le projet intègre également un **modèle ML de prédiction salariale** (Gradie
 ---
 
 ## 🖼️ Aperçu
-
+### Architecture Globale du Pipeline
+![Architecture](Docs/screenshots/architecture.png)
 ### Dashboard Power BI — Analyse du Marché Data
-![Dashboard Marché](docs/screenshots/dashboard_marche.png)
+![Dashboard Marché](Docs/screenshots/dashboard_marche.png)
 
 ### Dashboard Power BI — Compétences Clés & Salaires Prédits
-![Dashboard Compétences](docs/screenshots/dashboard_competences.png)
+![Dashboard Compétences](Docs/screenshots/dashboard_competences.png)
 
 ### Interface FastAPI — Recommandation CV
-![FastAPI Interface](docs/screenshots/fastapi_interface.png)
+![FastAPI Interface](Docs/screenshots/fastapi_interface.png)
 
 ### DAG Airflow — Pipeline quotidien
-![DAG Airflow](docs/screenshots/dag_airflow.png)
+![DAG Airflow](Docs/screenshots/dag_airflow.png)
 
 ---
 
@@ -52,42 +53,6 @@ Le projet intègre également un **modèle ML de prédiction salariale** (Gradie
 | Visualisation | Power BI | Dashboards analytiques |
 | API | FastAPI | 13 endpoints REST |
 | Conteneurs | Docker Compose | Environnement reproductible |
-
----
-
-## 🏗️ Architecture
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                    COLLECTE (Airflow DAG)                 │
-│  France Travail API  ·  Adzuna API  ·  Emploi.ma Scraper │
-└──────────────────────────┬──────────────────────────────┘
-                           │ JSON
-                    ┌──────▼──────┐
-                    │  MinIO BRONZE│
-                    └──────┬──────┘
-                           │ pandas transform
-                    ┌──────▼──────┐
-                    │  MinIO SILVER│  (Parquet)
-                    └──────┬──────┘
-                           │ dbt models
-              ┌────────────▼────────────┐
-              │  PostgreSQL DWH          │
-              │  (schéma étoile)         │
-              │  fact_offres + dims      │
-              └────────┬────────────────┘
-                       │              │
-              ┌────────▼──────┐  ┌────▼──────────┐
-              │  MinIO GOLD   │  │  FastAPI NLP   │
-              │  (agrégats    │  │  Sentence-BERT │
-              │   Power BI)   │  │  + ML Salaire  │
-              └────────┬──────┘  └───────────────┘
-                       │
-              ┌────────▼──────┐
-              │   Power BI    │
-              │   Dashboards  │
-              └───────────────┘
-```
 
 ---
 
